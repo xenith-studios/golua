@@ -1,4 +1,4 @@
-Go Bindings for the lua C API
+Go Bindings for the Lua C API
 
 Simplest way to install:
 
@@ -6,13 +6,11 @@ $ goinstall -u github.com/xenith-studios/golua
 $ cd $GOROOT/src/pkg/github.com/xenith-studios/golua
 $ make install
 
-Configuration Variables
------------------------
-
-In this version of the cgo bindings, I have removed the configuration variables
-and instead force the build against a copy of the Lua-5.1.4 source that is
+In this version of the cgo bindings we build against a copy of the Lua-5.1.4 source that is
 included in this distribution. This ensures that regardless of what changes you
 make to your system Lua libraries, these bindings will continue to function.
+This also ensures that the bindings are cross-platform. (For instance, this ignores differences
+between Lua installed via apt on Debian and MacPorts on OS X.)
 
 Licensing
 -------------------------
