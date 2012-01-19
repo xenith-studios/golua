@@ -4,7 +4,7 @@
 
 include $(GOROOT)/src/Make.inc
 
-CGO_CFLAGS+=-Ilua-5.1.4/src
+CGO_CFLAGS+=-Ilua-5.1.4/src -I_obj
 CGO_DEPS=_cgo_export.o
 CGO_LDFLAGS+=-lm
 CGO_OFILES=\
