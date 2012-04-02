@@ -1,8 +1,11 @@
 package golua
 
-//#include <lua.h>
-//#include "golua.h"
-//#include <stdlib.h>
+/*
+#cgo pkg-config: lua
+#include <lua.h>
+#include <stdlib.h>
+#include "golua.h"
+*/
 import "C"
 
 import "unsafe"
@@ -12,7 +15,7 @@ import "unsafe"
 
 //like lua_Writer, but as p will contain capacity, not needed as separate param
 type Writer func(L *State, p []byte, ud interface{});
-//like lua reader, but the return slice has the size, so does 
+//like lua reader, but the return slice has the size, so does
 // we do not need it to be an out param
 type Reader func(L *State, data interface{}) []byte;
 
@@ -140,7 +143,7 @@ func (L *State) PushLightUserdata(ud *interface{}) {
 }
 /*
 //TODO:
-//push pointer as full userdata - mem is go owned, but we 
+//push pointer as full userdata - mem is go owned, but we
 //make a guarantee that lifetime will outlast lua lifetime
 func PushUserdata(L *State, ud interface{}) {
 
@@ -178,7 +181,7 @@ func (L *State) AtPanic(panicf GoFunction) (oldpanicf GoFunction) {
 		}
 	}
 	//generally we only get here if the panicf got set to something like nil
-	//potentially dangerous because we may silently fail 
+	//potentially dangerous because we may silently fail
 	return nil;
 }
 
@@ -208,7 +211,7 @@ func (L *State) GoPCall(fun GoFunction, ud interface{}) int {
 	return 0;
 }
 
-//TODO: data be a slice? 
+//TODO: data be a slice?
 func (L *State) Dump( writer Writer, data interface{}) int {
 	//TODO:
 	return 0;
@@ -247,7 +250,7 @@ func (L *State) IsBoolean(index int) bool {
 }
 
 func (L *State) IsGoFunction(index int) bool {
-	//TODO:go function is now a userdatum, not a c function, so this will not work 
+	//TODO:go function is now a userdatum, not a c function, so this will not work
 	return C.lua_iscfunction(L.s, C.int(index)) == 1
 }
 
