@@ -3,6 +3,7 @@ package golua
 /*
 #cgo darwin pkg-config: lua
 #cgo linux pkg-config: lua5.1
+#cgo windows LDFLAGS: -llua51
 #include <lua.h>
 #include <stdlib.h>
 #include "golua.h"
