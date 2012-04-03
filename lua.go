@@ -1,7 +1,8 @@
 package golua
 
 /*
-#cgo pkg-config: lua
+#cgo darwin pkg-config: lua
+#cgo linux pkg-config: lua5.1
 #include <lua.h>
 #include <stdlib.h>
 #include "golua.h"
@@ -10,24 +11,11 @@ import "C"
 
 import "unsafe"
 
-
-
-
 //like lua_Writer, but as p will contain capacity, not needed as separate param
 type Writer func(L *State, p []byte, ud interface{});
 //like lua reader, but the return slice has the size, so does
 // we do not need it to be an out param
 type Reader func(L *State, data interface{}) []byte;
-
-//wrapper to keep cgo from complaining about incomplete ptr type
-//export State
-type State struct {
-	s *C.lua_State;
-	//funcs []GoFunction;
-	registry []interface{};
-	//freelist for funcs indices, to allow for freeing
-	freeIndices []uint;
-}
 
 func newState(L *C.lua_State) *State {
 	var newstatei interface{}
@@ -90,40 +78,6 @@ func (L *State) unregister(fid uint) {
 	}
 }
 
-type GoFunction func(*State) int;
-
-//export golua_callgofunction
-func golua_callgofunction(L interface{}, fid uint) int {
-	L1 := L.(*State);
-	f := L1.registry[fid].(GoFunction);
-	return f(L1);
-}
-
-//export golua_gchook
-func golua_gchook(L interface{}, id uint) int {
-	L1 := L.(*State);
-	L1.unregister(id);
-	return 0;
-}
-
-//export callpanicfunction
-func callpanicfunction(L interface{}, id uint) int {
-	L1 := L.(*State);
-	f := L1.registry[id].(GoFunction);
-	return f(L1);
-}
-
-//export idtointerface
-func idtointerface(id uint) interface{} {
-	return id;
-}
-
-//export cfunctiontointerface
-func cfunctiontointerface(f *uintptr) interface{} {
-	return f;
-}
-
-
 func (L *State) PushGoFunction(f GoFunction) {
 	fid := L.register(f);
 	C.clua_pushgofunction(L.s,C.uint(fid));
@@ -153,14 +107,6 @@ func PushUserdata(L *State, ud interface{}) {
 //old style
 func (L *State) NewUserdata(size uintptr) unsafe.Pointer {
 	return unsafe.Pointer(C.lua_newuserdata(L.s, C.size_t(size)));
-}
-
-
-type Alloc func(ptr unsafe.Pointer, osize uint, nsize uint) unsafe.Pointer;
-//export callAllocf
-func callAllocf(fp uintptr,	ptr uintptr,
-			    osize uint,			nsize uint) uintptr {
-	return uintptr((*((*Alloc)(unsafe.Pointer(fp))))(unsafe.Pointer(ptr),osize,nsize));
 }
 
 func (L *State) AtPanic(panicf GoFunction) (oldpanicf GoFunction) {

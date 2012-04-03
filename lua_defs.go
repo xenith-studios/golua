@@ -1,8 +1,12 @@
 package golua;
-//#include <lua.h>
- //#include <lauxlib.h>
- //#include <lualib.h>
- import "C"
+
+/*
+#include <lua.h>
+#include <lauxlib.h>
+#include <lualib.h>
+*/
+import "C"
+
 const (
    LUA_VERSION = C.LUA_VERSION
    LUA_RELEASE = C.LUA_RELEASE
