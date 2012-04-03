@@ -1,8 +1,17 @@
-Go Bindings for the Lua C API
+Go Bindings for the Lua C API (Now works on Go1!)
 
 Simplest way to install:
 
 $ go get -u github.com/xenith-studios/golua
+
+To use golua:
+
+import "github.com/xenith-studios/golua"
+
+After installing golua, if you wish to run the examples:
+
+$ cd $GOPATH/src/github.com/xenith-studios/golua/examples/
+$ for test in *.go; do { go run $test; } done
 
 Licensing
 -------------------------
