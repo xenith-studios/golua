@@ -1,9 +1,9 @@
 package golua;
 
 /*
-#include <lua.h>
-#include <lauxlib.h>
-#include <lualib.h>
+#include "lua.h"
+#include "lauxlib.h"
+#include "lualib.h"
 */
 import "C"
 
