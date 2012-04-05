@@ -2,6 +2,7 @@ package golua
 
 /*
 #cgo windows LDFLAGS: -llua51
+#cgo LDFLAGS: -lm
 #include <stdlib.h>
 #include "lua.h"
 */
