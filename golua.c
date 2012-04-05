@@ -1,7 +1,7 @@
-#include <lua.h>
-#include <lauxlib.h>
-#include <lualib.h>
 #include <stdint.h>
+#include "lua.h"
+#include "lauxlib.h"
+#include "lualib.h"
 #include "_cgo_export.h"
 //metatables to register:
 //  GoLua.GoInterface
