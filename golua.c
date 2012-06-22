@@ -68,7 +68,7 @@ void clua_pushgofunction(lua_State* L, unsigned int fid)
 
 void clua_pushlightinteger(lua_State* L, int n)
 {
-  lua_pushlightuserdata(L, (void*)(uintptr_t)n);
+  lua_pushlightuserdata(L, (void*)(GoUintptr)n);
 }
 
 uintptr_t clua_tolightinteger(lua_State *L, unsigned int index)
@@ -155,7 +155,7 @@ GoInterface clua_atpanic(lua_State* L, unsigned int panicf_id)
 	else
 	{
 		//TODO: technically UB, function ptr -> non function ptr
-		return golua_cfunctiontointerface((GoUintptr)pf);
+		return golua_cfunctiontointerface((GoUintptr *)pf);
 	}
 }
 
