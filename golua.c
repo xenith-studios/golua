@@ -155,7 +155,7 @@ GoInterface clua_atpanic(lua_State* L, unsigned int panicf_id)
 	else
 	{
 		//TODO: technically UB, function ptr -> non function ptr
-		return golua_cfunctiontointerface((uintptr *)pf);
+		return golua_cfunctiontointerface((GoUintptr)pf);
 	}
 }
 
@@ -166,7 +166,7 @@ int clua_callluacfunc(lua_State* L, lua_CFunction f)
 
 void* allocwrapper(void* ud, void *ptr, size_t osize, size_t nsize)
 {
-	return (void*)golua_callallocf((uintptr)ud,(uintptr)ptr,osize,nsize);
+	return (void*)golua_callallocf((GoUintptr)ud,(GoUintptr)ptr,osize,nsize);
 }
 
 lua_State* clua_newstate(void* goallocf)
