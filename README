@@ -10,7 +10,7 @@ import "github.com/xenith-studios/golua"
 
 After installing golua, if you wish to run the examples:
 
-$ cd $GOPATH/src/github.com/xenith-studios/golua/examples/
+$ cd $GOPATH/src/github.com/xenith-studios/golua/example/
 $ for test in *.go; do { go run $test; } done
 
 Licensing
